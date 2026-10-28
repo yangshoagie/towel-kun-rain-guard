@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f5f8f2" />
+    <title>타올쿤 출동! 송월우산으로 빗방울을 막아라</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="타올쿤 출동! 송월우산으로 빗방울을 막아라">
+        <span class="brand-mark">송</span>
+        <span><strong>송월</strong><small>타올 지킴이</small></span>
+      </a>
+      <div class="top-note"><span>☂</span> 송월우산과 함께 타올을 지켜요</div>
+      <button class="restart-button" id="restart-button" type="button" aria-label="우산 다시 고르기">☂ <span>우산 바꾸기</span></button>
+    </header>
+
+    <main>
+      <section class="intro">
+        <div class="intro-label"><span></span> SONGWOL RAIN GUARD</div>
+        <h1>타올쿤 출동! 송월우산으로 빗방울을 막아라 <span>☂</span></h1>
+        <p>낱말을 입력하면 타올쿤이 그쪽으로 달려가 우산으로 비를 막아줘요.</p>
+      </section>
+
+      <section class="selection-panel" id="selection-panel" aria-label="송월우산 고르기">
+        <div class="selection-heading">
+          <span class="intro-label"><span></span> PICK YOUR SONGWOL UMBRELLA</span>
+          <img class="selection-mascot" src="./towel-kun.png" alt="송월 타올쿤 캐릭터" />
+          <h2>먼저 타올쿤의 우산을 골라주세요!</h2>
+          <p>어떤 우산을 들고 땅에 떨어지는 빗방울을 막아줄까요?</p>
+        </div>
+        <div class="umbrella-groups" id="umbrella-groups"></div>
+        <div class="selection-footer"><span id="selection-hint">마음에 드는 우산을 선택해 주세요.</span><button type="button" id="choose-umbrella-start" disabled>선택한 우산 확인하기 <span>→</span></button></div>
+      </section>
+
+      <dialog class="confirm-dialog" id="umbrella-confirm" aria-labelledby="confirm-title">
+        <button type="button" class="confirm-close" id="confirm-close" aria-label="창 닫기">×</button>
+        <span class="intro-label"><span></span> YOUR SONGWOL UMBRELLA</span>
+        <img id="confirm-product-image" src="" alt="" />
+        <span class="product-code" id="confirm-product-code"></span>
+        <h2 id="confirm-title">이 우산으로 타올쿤과 함께하시겠습니까?</h2>
+        <h3 id="confirm-product-name"></h3>
+        <ul id="confirm-product-features"></ul>
+        <p id="confirm-product-price"></p>
+        <div class="confirm-actions">
+          <button type="button" class="confirm-yes" id="confirm-yes">예, 함께할게요 <span>→</span></button>
+          <button type="button" class="confirm-another" id="confirm-another">다른 우산 선택하기</button>
+        </div>
+      </dialog>
+
+      <section class="game-shell hidden" id="game-shell" aria-label="타올 지킴이 게임">
+        <div class="game-header">
+          <div class="game-title"><span class="rain-icon">☔</span><div><strong>타올쿤 출동 작전</strong><small>TYPE A WORD · BLOCK THE RAIN</small></div></div>
+          <div class="round-label"><span class="online-dot"></span> PLAY GAME</div>
+        </div>
+
+        <div class="stats">
+          <div class="stat"><span>점수</span><strong id="score">0000</strong></div>
+          <div class="stat"><span>단계</span><strong id="level">1</strong></div>
+          <div class="stat timer-stat"><span>버틴 시간</span><strong><b id="timer">00</b><small>초</small></strong></div>
+          <div class="umbrella-stat"><div class="durability-label"><span>땅의 젖음 정도</span><b id="umbrella-value">0%</b></div><div class="meter"><i id="umbrella-meter"></i></div></div>
+        </div>
+
+        <div class="playfield-wrap">
+          <canvas id="playfield" aria-label="낱말 빗방울을 입력하면 타올쿤이 그쪽으로 이동해 우산으로 막습니다."></canvas>
+          <div class="toast" id="toast" aria-live="polite"></div>
+        </div>
+
+        <form class="typing-bar" id="typing-form" autocomplete="off">
+          <label for="word-input"><span class="keyboard-icon">⌨</span><span class="typing-label">빗방울을 막아주세요</span></label>
+          <input id="word-input" type="text" inputmode="text" placeholder="빗방울 낱말 입력 후 Enter" aria-label="막을 빗방울 낱말 입력" disabled />
+          <button type="submit" id="submit-word" disabled>막기 <span>↵</span></button>
+        </form>
+        <div class="game-hint"><span>HOW TO PLAY</span> 빗방울 낱말 입력 후 Enter! 타올쿤이 달려가 우산으로 막아요.</div>
+        <section class="result-panel hidden" id="result-panel" aria-live="polite" aria-modal="true" role="dialog" aria-labelledby="result-title">
+          <div class="result-card">
+            <button type="button" class="result-close" id="result-close" aria-label="결과 닫기">×</button>
+            <div class="result-icon" id="result-icon">☀️</div>
+            <div class="result-copy"><span class="intro-label">ROUND COMPLETE</span><h2 id="result-title">땅을 지켜냈어요!</h2><p id="result-message"></p></div>
+            <div class="played-product">
+              <img id="result-product-image" src="" alt="" />
+              <div><span class="product-code" id="result-product-code"></span><h3 id="result-product-name"></h3><ul id="result-product-features"></ul><p class="result-product-price" id="result-product-price"></p></div>
+            </div>
+            <div class="dealer-cta">
+              <strong>방금 플레이한 우산을<br />가까운 대리점에서 답례품으로 맞춰보세요!</strong>
+              <p>지역을 입력하면 송월타올 대리점을 지도에서 찾아드려요.</p>
+              <form id="dealer-form" class="dealer-form">
+                <label class="sr-only" for="region-input">지역 또는 동네</label>
+                <input id="region-input" type="text" placeholder="내 동네 (예: 서울 마포구)" required />
+                <button type="submit">가까운 대리점 찾기 <span>↗</span></button>
+              </form>
+            </div>
+            <button type="button" class="retry-button" id="retry-button">다시 플레이하기 ↻</button>
+            <p class="map-note">제품명·특징·가격은 첨부해주신 자료 기준이며, 판매 조건은 대리점에서 확인해 주세요.</p>
+          </div>
+        </section>
+      </section>
+      <footer>우산 제품 정보와 이미지는 제공해주신 자료를 바탕으로 구성했습니다. 제품·판매 정보는 가까운 대리점에서 확인해 주세요.</footer>
+    </main>
+  </body>
+</html>
