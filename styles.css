@@ -17,10 +17,8 @@ button, input { font: inherit; }
 button { cursor: pointer; }
 .topbar { height: 70px; padding: 0 max(5vw, calc((100vw - 1060px) / 2)); display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #e8eee6; background: rgba(255,255,255,.8); }
 .brand { display: flex; align-items: center; gap: 9px; color: #394742; text-decoration: none; }
-.brand-mark { width: 37px; height: 37px; display: grid; place-items: center; border-radius: 12px 12px 12px 4px; background: #648c73; color: white; font-family: 'Pretendard', sans-serif; font-size: 19px; }
-.brand strong, .brand small { display: block; }
-.brand strong { font-family: 'Pretendard', sans-serif; font-size: 16px; }
-.brand small { margin-top: 2px; color: #99a59c; font-size: 9px; }
+.brand-logo { width: 170px; height: auto; display: block; }
+.brand-product { display: block; }
 .top-note { color: #7d8c83; font-size: 11px; }
 .top-note span { margin-right: 5px; color: #698d78; }
 .restart-button { padding: 7px 10px; border: 1px solid #e9eee7; border-radius: 8px; background: white; color: #718078; font-size: 17px; }
@@ -123,6 +121,12 @@ h1 span { color: #6a9278; }
 .result-copy .intro-label { font-size: 8px; }
 .result-copy h2 { margin: 4px 0 5px; font-size: 21px; }
 .result-copy p { margin: 0; color: #8d9990; font-size: 10px; line-height: 1.5; }
+.score-record { margin: 13px auto 0; padding: 12px; display: grid; justify-items: center; gap: 4px; border: 1px solid #e8eee7; border-radius: 11px; background: #f9fbf7; }
+.score-record > span { color: #8d9990; font-size: 9px; }
+.score-record > strong { color: #42634d; font-size: 22px; font-variant-numeric: tabular-nums; }
+.score-record > small, #share-status { min-height: 12px; margin: 0; color: #8d9990; font-size: 9px; }
+.score-record > button { min-height: 34px; margin-top: 4px; padding: 0 13px; border: 1px solid #dfe8de; border-radius: 8px; background: white; color: #587d68; font-size: 10px; font-weight: 650; }
+.score-record > button span { margin-left: 5px; }
 .played-product { margin-top: 17px; padding: 10px; display: grid; grid-template-columns: minmax(140px,.9fr) minmax(0,1.1fr); align-items: center; gap: 14px; border: 1px solid #e8eee7; border-radius: 12px; background: #fcfdfb; text-align: left; }
 .played-product > img { width: 100%; aspect-ratio: 1.48; border-radius: 8px; object-fit: cover; background: white; }
 .played-product h3 { margin: 4px 0 7px; color: #405248; font-size: 15px; line-height: 1.4; }
@@ -187,4 +191,80 @@ footer { padding: 17px 0 28px; color: #a5b0a7; font-size: 9px; text-align: cente
   .dealer-cta > strong { font-size: 13px; }
   .dealer-form { grid-template-columns: 1fr; }
   .dealer-form button { width: 100%; }
+}
+
+:root {
+  --coral: #a64b45;
+  --green: #7c0018;
+  --muted: #81736d;
+}
+
+body { background: radial-gradient(ellipse at 14% 0, #f1e7d7 0, transparent 35%), #f7f4ed; }
+.topbar { border-bottom: 2px solid #b19469; background: #7c0018; }
+.brand { color: #fffaf1; }
+.brand-product { padding-left: 12px; border-left: 1px solid #ddc69f; color: #fffaf1; font-size: 18px; font-weight: 750; white-space: nowrap; }
+.top-note { color: #e4d7c6; }
+.top-note span { color: #d7bb8d; }
+.restart-button { border-color: #a77c78; background: transparent; color: #fffaf1; }
+.intro { margin: 22px 0 24px; padding: 24px 28px 25px; border: 2px solid #b19469; border-radius: 4px; background: linear-gradient(110deg, #7c0018, #4d0010); text-align: left; box-shadow: 0 7px 0 #4d0010; }
+.intro-label { color: #ddc69f; }
+.intro-label > span { background: #ddc69f; }
+h1 { max-width: 700px; margin: 10px 0 8px; color: #fffaf1; font-weight: 800; line-height: 1.2; }
+h1 span { color: #d7bb8d; }
+.intro p { color: #e4d7c6; }
+.selection-panel { border: 2px solid #76504a; border-radius: 8px; background: #fffdf8; box-shadow: 0 6px 0 #e7ddd0, 0 16px 34px rgba(67,43,35,.08); }
+.selection-heading h2 { color: #7c0018; font-weight: 750; }
+.game-shell { border: 2px solid #7c0018; border-radius: 8px; background: #fffdf8; box-shadow: 0 7px 0 #4d0010, 0 20px 38px rgba(67,43,35,.13); }
+.game-header { border-bottom: 2px solid #b19469; background: #7c0018; }
+.game-title strong { color: #fffaf1; font-weight: 750; }
+.game-title small { color: #ddc69f; }
+.rain-icon { background: #ddc69f; color: #7c0018; }
+.round-label { padding: 6px 9px; border-radius: 3px; background: #ddc69f; color: #7c0018; }
+.online-dot { background: #a64b45; box-shadow: 0 0 0 3px #fffaf155; }
+.stats { background: #f3ece0; }
+.stat strong { color: #7c0018; }
+.durability-label b { color: #7d3b3d; }
+.meter { background: #e4d8c6; }
+.meter i { background: linear-gradient(90deg,#d2b579,#8f6a4e); }
+.typing-bar { border-color: #76504a; background: #7c0018; }
+.typing-bar label { color: #fffaf1; }
+.keyboard-icon { background: #ddc69f; color: #7c0018; }
+.typing-bar input { border-color: #d7c8b3; background: #fffdf8; }
+.typing-bar button { background: #a64b45; font-weight: 800; }
+.game-hint { background: #4d0010; color: #eee2d1; }
+.game-hint > span { color: #ddc69f; }
+.umbrella-choice.selected { border-color: #7c0018; background: #f6eee1; box-shadow: 0 0 0 3px #ddc69f; }
+.selection-footer button, .retry-button { background: #7c0018; color: #fffaf1; box-shadow: 0 4px 0 #4d0010; }
+.selection-footer button:disabled { background: #c6bbb0; box-shadow: none; }
+.result-card { border: 2px solid #7c0018; border-radius: 8px; background: #fffaf1; box-shadow: 0 7px 0 #4d0010, 0 24px 70px #17231b50; }
+.result-panel { background: rgba(42,0,10,.72); }
+.result-close { background: #f5edde; color: #7c0018; }
+.result-sign { min-height: 66px; margin: -25px -27px 16px; padding: 12px 54px 12px 18px; display: flex; align-items: center; justify-content: center; gap: 14px; background: #7c0018; }
+.result-sign img { width: 150px; height: auto; display: block; }
+.result-sign strong { padding-left: 13px; border-left: 1px solid #ddc69f; color: #fffaf1; font-size: 16px; white-space: nowrap; }
+.result-copy h2 { color: #7c0018; font-weight: 750; }
+.result-copy p { color: #81736d; }
+.result-icon { background: #f3e7d2; }
+.score-record { border-color: #d8c7aa; background: #f8f1e5; }
+.score-record > strong { color: #7c0018; }
+.score-record > button { border-color: #7c0018; background: #7c0018; color: #fffaf1; font-weight: 750; }
+.played-product { border-color: #d8cbb8; background: #fffdf8; }
+.played-product h3 { color: #5a292d; }
+.result-product-price { color: #7c0018; }
+.dealer-cta { border-color: #d0bd9b; background: #f5edde; }
+.dealer-cta > strong { color: #7c0018; }
+.dealer-form button { background: #a64b45; }
+
+@media (max-width: 600px) {
+  .topbar { padding: 0 12px; }
+  .brand { gap: 7px; }
+  .brand-logo { width: 126px; }
+  .brand-product { padding-left: 8px; font-size: 13px; }
+  .restart-button { padding: 6px 8px; }
+  .intro { margin: 16px 0 20px; padding: 19px 16px 20px; }
+  h1 { font-size: clamp(26px, 8vw, 34px); }
+  .intro p { margin: 0; }
+  .result-sign { min-height: 58px; margin: -21px -14px 14px; padding: 10px 38px 10px 8px; gap: 8px; }
+  .result-sign img { width: 112px; }
+  .result-sign strong { padding-left: 8px; font-size: 13px; }
 }

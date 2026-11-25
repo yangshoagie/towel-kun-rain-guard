@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#f5f8f2" />
+    <meta name="theme-color" content="#7c0018" />
     <title>타올쿤 출동! 송월우산으로 빗방울을 막아라</title>
     <link rel="stylesheet" href="styles.css" />
     <script src="app.js" defer></script>
@@ -11,16 +11,16 @@
   <body>
     <header class="topbar">
       <a class="brand" href="#" aria-label="타올쿤 출동! 송월우산으로 빗방울을 막아라">
-        <span class="brand-mark">송</span>
-        <span><strong>송월</strong><small>타올 지킴이</small></span>
+        <img class="brand-logo" src="./assets/songwol-ci.png" alt="SONGWOL 송월 CI" />
+        <strong class="brand-product">송월우산</strong>
       </a>
-      <div class="top-note"><span>☂</span> 송월우산과 함께 타올을 지켜요</div>
+      <div class="top-note"><span>☂</span> 송월타올 대리점 게임</div>
       <button class="restart-button" id="restart-button" type="button" aria-label="우산 다시 고르기">☂ <span>우산 바꾸기</span></button>
     </header>
 
     <main>
       <section class="intro">
-        <div class="intro-label"><span></span> SONGWOL RAIN GUARD</div>
+        <div class="intro-label"><span></span> SONGWOL TOWEL &amp; UMBRELLA</div>
         <h1>타올쿤 출동! 송월우산으로 빗방울을 막아라 <span>☂</span></h1>
         <p>낱말을 입력하면 타올쿤이 그쪽으로 달려가 우산으로 비를 막아줘요.</p>
       </section>
@@ -54,7 +54,7 @@
       <section class="game-shell hidden" id="game-shell" aria-label="타올 지킴이 게임">
         <div class="game-header">
           <div class="game-title"><span class="rain-icon">☔</span><div><strong>타올쿤 출동 작전</strong><small>TYPE A WORD · BLOCK THE RAIN</small></div></div>
-          <div class="round-label"><span class="online-dot"></span> PLAY GAME</div>
+          <div class="round-label"><span class="online-dot"></span> DEALER GAME</div>
         </div>
 
         <div class="stats">
@@ -77,9 +77,17 @@
         <div class="game-hint"><span>HOW TO PLAY</span> 빗방울 낱말 입력 후 Enter! 타올쿤이 달려가 우산으로 막아요.</div>
         <section class="result-panel hidden" id="result-panel" aria-live="polite" aria-modal="true" role="dialog" aria-labelledby="result-title">
           <div class="result-card">
+            <div class="result-sign"><img src="./assets/songwol-ci.png" alt="SONGWOL 송월 CI" /><strong>송월우산</strong></div>
             <button type="button" class="result-close" id="result-close" aria-label="결과 닫기">×</button>
             <div class="result-icon" id="result-icon">☀️</div>
             <div class="result-copy"><span class="intro-label">ROUND COMPLETE</span><h2 id="result-title">땅을 지켜냈어요!</h2><p id="result-message"></p></div>
+            <div class="score-record" aria-live="polite">
+              <span>내 기기 최고 기록</span>
+              <strong id="best-score">0000점</strong>
+              <small id="record-message"></small>
+              <button type="button" id="share-result">도전 링크 복사하기 <span>↗</span></button>
+              <p id="share-status" role="status"></p>
+            </div>
             <div class="played-product">
               <img id="result-product-image" src="" alt="" />
               <div><span class="product-code" id="result-product-code"></span><h3 id="result-product-name"></h3><ul id="result-product-features"></ul><p class="result-product-price" id="result-product-price"></p></div>

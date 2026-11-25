@@ -11,6 +11,9 @@ const timerNode = document.querySelector('#timer');
 const umbrellaValue = document.querySelector('#umbrella-value');
 const umbrellaMeter = document.querySelector('#umbrella-meter');
 const toast = document.querySelector('#toast');
+const bestScoreNode = document.querySelector('#best-score');
+const recordMessageNode = document.querySelector('#record-message');
+const shareStatusNode = document.querySelector('#share-status');
 const mascot = new Image();
 mascot.src = './towel-kun.png';
 mascot.addEventListener('load', drawScene);
@@ -76,9 +79,9 @@ function drawScene() {
   ctx.clearRect(0, 0, width, height);
 
   const sky = ctx.createLinearGradient(0, 0, 0, height);
-  sky.addColorStop(0, '#dcecf0');
-  sky.addColorStop(0.68, '#eff2e9');
-  sky.addColorStop(1, '#e8e3d5');
+  sky.addColorStop(0, '#bde7f2');
+  sky.addColorStop(0.68, '#e9f4c7');
+  sky.addColorStop(1, '#f4dcae');
   ctx.fillStyle = sky;
   ctx.fillRect(0, 0, width, height);
 
@@ -87,8 +90,8 @@ function drawScene() {
   drawCloud(width * 0.79, height * 0.14, 38);
   drawCloud(width * 0.46, height * 0.3, 21);
 
-  ctx.strokeStyle = 'rgba(112,155,177,.28)';
-  ctx.lineWidth = 1.4;
+  ctx.strokeStyle = 'rgba(65,145,176,.38)';
+  ctx.lineWidth = 1.8;
   for (let i = 0; i < 34; i += 1) {
     const x = ((i * 83 + 31) % Math.max(width, 1));
     const y = ((i * 47 + game.elapsed * 58) % Math.max(height * 0.68, 1));
@@ -99,9 +102,9 @@ function drawScene() {
   }
 
   const groundY = height * 0.86;
-  ctx.fillStyle = '#d6d3bd';
+  ctx.fillStyle = '#d9c985';
   ctx.fillRect(0, groundY, width, height - groundY);
-  ctx.fillStyle = '#bdcdb9';
+  ctx.fillStyle = '#a8ce78';
   ctx.fillRect(0, groundY, width, 6);
 
   drawWetGround(width, height * 0.86);
@@ -379,6 +382,60 @@ function showPlayedUmbrella() {
   document.querySelector('#result-product-price').textContent = `자료 기준 참고가 ${selectedUmbrella.price} · ${selectedUmbrella.type}`;
 }
 
+function updateBestScore() {
+  const storageKey = 'towelKunBestScore';
+  try {
+    const previousBest = Number(localStorage.getItem(storageKey)) || 0;
+    const isNewRecord = game.score > previousBest;
+    const bestScore = Math.max(previousBest, game.score);
+    if (isNewRecord) localStorage.setItem(storageKey, String(bestScore));
+    bestScoreNode.textContent = `${String(bestScore).padStart(4, '0')}점`;
+    recordMessageNode.textContent = isNewRecord ? '새 개인 최고 기록!' : '내 기기에 저장된 기록';
+  } catch (error) {
+    console.error('Unable to access the personal best score:', error);
+    bestScoreNode.textContent = `${String(game.score).padStart(4, '0')}점`;
+    recordMessageNode.textContent = '기록을 저장할 수 없어 이번 점수만 표시해요.';
+  }
+}
+
+async function copyText(text) {
+  if (navigator.clipboard?.writeText) {
+    try {
+      await navigator.clipboard.writeText(text);
+      return;
+    } catch (error) {
+      console.warn('Clipboard API failed; trying the browser copy command:', error);
+    }
+  }
+
+  const textarea = document.createElement('textarea');
+  textarea.value = text;
+  textarea.setAttribute('readonly', '');
+  textarea.style.position = 'fixed';
+  textarea.style.opacity = '0';
+  document.body.appendChild(textarea);
+  try {
+    textarea.select();
+    if (!document.execCommand('copy')) {
+      throw new Error('The browser did not copy the challenge link.');
+    }
+  } finally {
+    textarea.remove();
+  }
+}
+
+async function shareResult() {
+  const shareText = `${game.score}점을 기록했어요. 내 기록에 도전해 보세요! ${window.location.href}`;
+  shareStatusNode.textContent = '';
+  try {
+    await copyText(shareText);
+    shareStatusNode.textContent = '도전 링크를 복사했어요. 친구에게 보내보세요!';
+  } catch (error) {
+    console.error('Unable to copy the game result:', error);
+    shareStatusNode.textContent = '링크를 복사하지 못했어요. 브라우저의 주소창에서 링크를 복사해 주세요.';
+  }
+}
+
 function spawnTarget() {
   const word = words[Math.floor(Math.random() * words.length)];
   ctx.save();
@@ -427,6 +484,8 @@ function finishGame(won) {
   document.querySelector('#result-icon').textContent = won ? '☀️' : '💧';
   document.querySelector('#result-title').textContent = won ? '땅을 뽀송하게 지켜냈어요!' : '앗, 땅이 빗물에 젖었어요!';
   document.querySelector('#result-message').textContent = `${game.elapsed}초 동안 ${game.score}점을 얻었어요. ${won ? '타올쿤이 열심히 빗방울을 막았어요!' : '다시 도전해서 타올쿤과 땅을 지켜주세요!'}`;
+  updateBestScore();
+  shareStatusNode.textContent = '';
   showPlayedUmbrella();
   resultPanel.classList.remove('hidden');
   drawScene();
@@ -607,6 +666,7 @@ document.querySelector('#restart-button').addEventListener('click', () => {
   drawScene();
 });
 document.querySelector('#retry-button').addEventListener('click', startGame);
+document.querySelector('#share-result').addEventListener('click', shareResult);
 document.querySelector('#result-close').addEventListener('click', () => {
   resultPanel.classList.add('hidden');
   gameShell.classList.add('hidden');
