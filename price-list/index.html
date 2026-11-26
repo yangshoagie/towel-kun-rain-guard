@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#780018" />
+    <meta name="description" content="2026년 송월우산 가격표를 모바일에서 간편하게 검색하고 확인하세요." />
+    <title>2026 송월우산 가격표</title>
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <link rel="icon" href="./icon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="./styles.css" />
+    <script src="./app.js" defer></script>
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="./" aria-label="송월우산 가격표 홈">
+        <img src="../assets/songwol-ci.png" alt="SONGWOL" />
+        <span>우산 가격표</span>
+      </a>
+      <a class="source-link" href="./2026-songwol-umbrella-price-list.pdf" target="_blank" rel="noopener">원본 PDF 보기 <span aria-hidden="true">↗</span></a>
+    </header>
+
+    <main>
+      <section class="intro">
+        <span class="eyebrow">SONGWOL UMBRELLA · 2026</span>
+        <h1>2026 송월우산 가격표</h1>
+        <p>제품과 색상을 찾고, 가격 항목을 간편하게 확인하세요.</p>
+        <div class="summary"><strong id="product-count">26</strong><span>개 제품</span><span class="summary-divider">·</span><span>원본 가격표 기준</span></div>
+      </section>
+
+      <section class="catalog" aria-label="우산 제품 목록">
+        <label class="search">
+          <span aria-hidden="true">⌕</span>
+          <input id="search-input" type="search" placeholder="제품명이나 색상 검색" autocomplete="off" />
+          <button id="clear-search" type="button" aria-label="검색어 지우기" hidden>×</button>
+        </label>
+        <nav class="filters" aria-label="우산 종류 필터">
+          <button class="filter active" type="button" data-category="전체" aria-pressed="true">전체</button>
+          <button class="filter" type="button" data-category="장우산" aria-pressed="false">장우산</button>
+          <button class="filter" type="button" data-category="2단우산" aria-pressed="false">2단우산</button>
+          <button class="filter" type="button" data-category="3단우산" aria-pressed="false">3단우산</button>
+        </nav>
+        <div id="product-list" class="product-list" aria-live="polite"></div>
+        <p id="empty-message" class="empty-message" hidden>검색 결과가 없습니다. 다른 검색어를 입력해 주세요.</p>
+      </section>
+      <p class="price-note">판매가가 원본에 기재되지 않은 제품은 ‘미정’으로 표시했습니다. 최신 판매 조건은 대리점에 확인해 주세요.</p>
+    </main>
+    <footer><span>SONGWOL</span> 2026 우산 가격표 <a href="./2026-songwol-umbrella-price-list.pdf" download>원본 PDF 다운로드</a></footer>
+  </body>
+</html>

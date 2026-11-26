@@ -1,0 +1,19 @@
+{
+  "name": "2026 송월우산 가격표",
+  "short_name": "송월우산",
+  "description": "송월우산 제품과 가격을 검색하는 모바일 앱",
+  "lang": "ko",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#fffaf1",
+  "theme_color": "#780018",
+  "icons": [
+    {
+      "src": "./icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
